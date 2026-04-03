@@ -1,3 +1,3 @@
-# Welcome to your Lovable project
+# Events.com clone
 
 TODO: Document your project here
