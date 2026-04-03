@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Menu, X, LayoutGrid, Settings, Target, Award, Zap, BarChart3, Monitor, CalendarDays, ChevronDown } from "lucide-react";
 import { navLinks } from "@/data/siteData";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const dropdownItems = [
   { label: "Sell", subtitle: "Sales Management Tools", icon: Settings },
@@ -72,9 +73,9 @@ const Navbar = () => {
                 >
                   <div className="py-2">
                     {dropdownItems.map((item) => (
-                      <a
+                      <Link
                         key={item.label}
-                        href="#"
+                        to="/get-quote"
                         className="flex items-center gap-3 px-5 py-3 transition-colors hover:bg-primary-foreground/10"
                         onClick={() => setDropdownOpen(false)}
                       >
@@ -85,7 +86,7 @@ const Navbar = () => {
                           </span>
                           <span className="block text-xs text-primary-foreground/60">{item.subtitle}</span>
                         </div>
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </motion.div>
@@ -141,9 +142,9 @@ const Navbar = () => {
                   Get Quote
                 </span>
                 {dropdownItems.map((item) => (
-                  <a
+                  <Link
                     key={item.label}
-                    href="#"
+                    to="/get-quote"
                     className="flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-primary/40"
                     onClick={() => setMobileOpen(false)}
                   >
@@ -151,7 +152,7 @@ const Navbar = () => {
                     <span className="text-sm font-semibold text-primary-foreground">
                       Events.com {item.label}
                     </span>
-                  </a>
+                  </Link>
                 ))}
               </div>
               <a

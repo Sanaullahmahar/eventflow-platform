@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import heroImg from "@/assets/hero-event.jpg";
 
 const HeroSection = () => (
@@ -35,12 +36,12 @@ const HeroSection = () => (
           Empowering event creators through every stage of the journey — sell tickets, promote events, engage sponsors, insure your event, and discover experiences worldwide.
         </p>
         <div className="mt-8 flex flex-wrap gap-4">
-          <a
-            href="#quote"
+          <Link
+            to="/get-quote"
             className="inline-flex items-center rounded-full bg-accent-cyan px-8 py-3.5 text-sm font-bold text-foreground shadow-lg transition-transform hover:scale-105"
           >
             Get Quote
-          </a>
+          </Link>
           <a
             href="#discover"
             className="inline-flex items-center rounded-full border-2 border-primary-foreground/40 px-8 py-3.5 text-sm font-bold text-primary-foreground transition-colors hover:border-primary-foreground hover:bg-primary-foreground/10"
