@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import singerImg from "@/assets/singer-event.jpg";
 
 const ServicesSection = () => (
@@ -20,12 +21,12 @@ const ServicesSection = () => (
         <p className="mt-4 max-w-lg leading-relaxed text-muted-foreground">
           We create unforgettable experiences that captivate attendees and leave a lasting impact. Drawing on over 30 years of experience, we deliver innovative marketing, acquire top talent, and produce world-class events to bring your vision to life.
         </p>
-        <a
-          href="#quote"
+        <Link
+          to="/get-quote"
           className="mt-6 inline-flex rounded-full bg-accent-cyan px-8 py-3 text-sm font-bold text-foreground transition-transform hover:scale-105"
         >
           Get Quote
-        </a>
+        </Link>
       </motion.div>
 
       <motion.div

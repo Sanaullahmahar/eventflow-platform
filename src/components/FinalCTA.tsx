@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const FinalCTA = () => (
   <section id="quote" className="relative overflow-hidden bg-brand-gradient py-24">
@@ -18,12 +19,12 @@ const FinalCTA = () => (
         From ticketing and promotion to sponsorship, event insurance, and attendee engagement — everything you need to create unforgettable experiences.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-4">
-        <a
-          href="#"
+        <Link
+          to="/get-quote"
           className="rounded-full bg-accent-cyan px-8 py-3.5 text-sm font-bold text-foreground shadow-lg transition-transform hover:scale-105"
         >
           Get Quote
-        </a>
+        </Link>
         <a
           href="#discover"
           className="rounded-full border-2 border-primary-foreground/40 px-8 py-3.5 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary-foreground/10"
