@@ -1,10 +1,32 @@
-import { useState } from "react";
-import { Menu, X, LayoutGrid } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Menu, X, LayoutGrid, Settings, Target, Award, Zap, BarChart3, Monitor, CalendarDays, ChevronDown } from "lucide-react";
 import { navLinks } from "@/data/siteData";
 import { motion, AnimatePresence } from "framer-motion";
 
+const dropdownItems = [
+  { label: "Sell", subtitle: "Sales Management Tools", icon: Settings },
+  { label: "Promote", subtitle: "Digital Marketing Management Tools", icon: Target },
+  { label: "Sponsor", subtitle: "Sponsorship Management Tools", icon: Award },
+  { label: "Execute", subtitle: "Event Execution Tools", icon: Zap },
+  { label: "Insights", subtitle: "Data Management Tools", icon: BarChart3 },
+  { label: "Virtual", subtitle: "Virtual Event Tools", icon: Monitor },
+  { label: "Calendar", subtitle: "Calendar Management Tools", icon: CalendarDays },
+];
+
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <nav className="sticky top-0 z-50 bg-primary-deep shadow-lg">
@@ -25,12 +47,51 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
-          <a
-            href="#quote"
-            className="ml-2 rounded-full bg-accent-lime px-5 py-2 text-sm font-bold text-foreground transition-transform hover:scale-105"
-          >
-            Get Quote
-          </a>
+
+          {/* Get Quote Dropdown */}
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="ml-1 flex items-center gap-1 rounded-full px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/40"
+            >
+              Get Quote
+              <ChevronDown
+                size={16}
+                className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            <AnimatePresence>
+              {dropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.18 }}
+                  className="absolute right-0 top-full mt-2 w-72 overflow-hidden rounded-2xl bg-primary shadow-2xl ring-1 ring-primary-foreground/10"
+                >
+                  <div className="py-2">
+                    {dropdownItems.map((item) => (
+                      <a
+                        key={item.label}
+                        href="#"
+                        className="flex items-center gap-3 px-5 py-3 transition-colors hover:bg-primary-foreground/10"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        <item.icon size={20} className="flex-shrink-0 text-accent-cyan" />
+                        <div>
+                          <span className="block text-sm font-bold text-primary-foreground">
+                            Events.com <span className="font-bold">{item.label}</span>
+                          </span>
+                          <span className="block text-xs text-primary-foreground/60">{item.subtitle}</span>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
 
         {/* Right side */}
@@ -74,16 +135,28 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <a
-                href="#quote"
-                className="mt-2 rounded-full bg-accent-lime px-5 py-3 text-center text-sm font-bold text-foreground"
-                onClick={() => setMobileOpen(false)}
-              >
-                Get Quote
-              </a>
+              {/* Mobile dropdown items */}
+              <div className="mt-2 border-t border-primary-foreground/10 pt-2">
+                <span className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-primary-foreground/50">
+                  Get Quote
+                </span>
+                {dropdownItems.map((item) => (
+                  <a
+                    key={item.label}
+                    href="#"
+                    className="flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-primary/40"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <item.icon size={18} className="text-accent-cyan" />
+                    <span className="text-sm font-semibold text-primary-foreground">
+                      Events.com {item.label}
+                    </span>
+                  </a>
+                ))}
+              </div>
               <a
                 href="#"
-                className="mt-1 text-center text-sm font-semibold text-accent-lime"
+                className="mt-2 text-center text-sm font-semibold text-accent-lime"
                 onClick={() => setMobileOpen(false)}
               >
                 Log in
