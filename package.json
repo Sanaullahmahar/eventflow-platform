@@ -45,6 +45,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+<<<<<<< HEAD
     "cors": "^2.8.6",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.6.0",
@@ -53,6 +54,13 @@
     "input-otp": "^1.4.2",
     "lucide-react": "^0.462.0",
     "mysql2": "^3.20.0",
+=======
+    "date-fns": "^3.6.0",
+    "embla-carousel-react": "^8.6.0",
+    "framer-motion": "^11.0.0",
+    "input-otp": "^1.4.2",
+    "lucide-react": "^0.462.0",
+>>>>>>> 0cd905cc1a6696cd228f063059cd788a03ff14f4
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
     "react-day-picker": "^8.10.1",
