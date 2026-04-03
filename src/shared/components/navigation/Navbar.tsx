@@ -1,7 +1,19 @@
-import { useState, useRef, useEffect } from "react";
-import { Menu, X, LayoutGrid, Settings, Target, Award, Zap, BarChart3, Monitor, CalendarDays, ChevronDown } from "lucide-react";
-import { navLinks } from "@/data/siteData";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  Award,
+  BarChart3,
+  CalendarDays,
+  ChevronDown,
+  LayoutGrid,
+  Menu,
+  Monitor,
+  Settings,
+  Target,
+  X,
+  Zap,
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { navLinks } from "@/shared/config/siteContent";
 
 const dropdownItems = [
   { label: "Sell", subtitle: "Sales Management Tools", icon: Settings },
@@ -11,7 +23,7 @@ const dropdownItems = [
   { label: "Insights", subtitle: "Data Management Tools", icon: BarChart3 },
   { label: "Virtual", subtitle: "Virtual Event Tools", icon: Monitor },
   { label: "Calendar", subtitle: "Calendar Management Tools", icon: CalendarDays },
-];
+] as const;
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -19,24 +31,27 @@ const Navbar = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
     <nav className="sticky top-0 z-50 bg-primary-deep shadow-lg">
       <div className="container mx-auto flex items-center justify-between px-4 py-3 lg:px-8">
-        {/* Logo */}
-        <a href="#" className="text-2xl font-extrabold tracking-tight text-primary-foreground lg:text-3xl">
+        <a
+          href="/"
+          className="text-2xl font-extrabold tracking-tight text-primary-foreground lg:text-3xl"
+        >
           events<span className="text-accent-lime">.com</span>
         </a>
 
-        {/* Desktop nav */}
         <div className="hidden items-center gap-1 lg:flex">
           {navLinks.map((link) => (
             <a
@@ -48,13 +63,12 @@ const Navbar = () => {
             </a>
           ))}
 
-          {/* Get Quote Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
+              onClick={() => setDropdownOpen((currentValue) => !currentValue)}
               className="ml-1 flex items-center gap-1 rounded-full px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/40"
             >
-              Get Quote
+              Create Events
               <ChevronDown
                 size={16}
                 className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
@@ -83,7 +97,9 @@ const Navbar = () => {
                           <span className="block text-sm font-bold text-primary-foreground">
                             Events.com <span className="font-bold">{item.label}</span>
                           </span>
-                          <span className="block text-xs text-primary-foreground/60">{item.subtitle}</span>
+                          <span className="block text-xs text-primary-foreground/60">
+                            {item.subtitle}
+                          </span>
                         </div>
                       </a>
                     ))}
@@ -94,27 +110,30 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Right side */}
         <div className="hidden items-center gap-3 lg:flex">
-          <a href="#" className="text-sm font-semibold text-accent-lime transition-colors hover:text-accent-cyan">
+          <a
+            href="#"
+            className="text-sm font-semibold text-accent-lime transition-colors hover:text-accent-cyan"
+          >
             Log in
           </a>
-          <button className="rounded-lg p-2 text-primary-foreground transition-colors hover:bg-primary/40" aria-label="Menu grid">
+          <button
+            className="rounded-lg p-2 text-primary-foreground transition-colors hover:bg-primary/40"
+            aria-label="Menu grid"
+          >
             <LayoutGrid size={20} />
           </button>
         </div>
 
-        {/* Mobile toggle */}
         <button
           className="rounded-lg p-2 text-primary-foreground lg:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
+          onClick={() => setMobileOpen((currentValue) => !currentValue)}
           aria-label="Toggle menu"
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -135,10 +154,9 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              {/* Mobile dropdown items */}
               <div className="mt-2 border-t border-primary-foreground/10 pt-2">
                 <span className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-primary-foreground/50">
-                  Get Quote
+                  Create Events
                 </span>
                 {dropdownItems.map((item) => (
                   <a

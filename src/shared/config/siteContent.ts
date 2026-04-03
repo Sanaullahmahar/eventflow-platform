@@ -1,15 +1,18 @@
+import { FooterColumn } from "@/shared/config/models/FooterColumn";
+import { NavigationItem } from "@/shared/config/models/NavigationItem";
+
 export const navLinks = [
-  { label: "My Tickets", href: "#" },
-  { label: "Event Insurance", href: "#" },
-  { label: "Discover Events", href: "#discover" },
-  { label: "Virtual Events", href: "#" },
-];
+  new NavigationItem("My Tickets", "#"),
+  new NavigationItem("Events Insurance", "/events-insurance"),
+  new NavigationItem("Discover Events", "/#discover"),
+  new NavigationItem("Virtual Events", "#"),
+] as const;
 
 export const featuredEvents = [
   {
     id: 1,
     image: "event-summit",
-    date: "Thursday 23–26 April",
+    date: "Thursday 23-26 April",
     title: "Summit At Sea 2026",
     location: "Miami, FL",
     tags: ["Conference"],
@@ -17,7 +20,7 @@ export const featuredEvents = [
   {
     id: 2,
     image: "event-beer",
-    date: "Friday 22–23 May",
+    date: "Friday 22-23 May",
     title: "Great Alaska Craft Beer Festival",
     location: "Haines, AK",
     tags: ["Festival"],
@@ -25,7 +28,7 @@ export const featuredEvents = [
   {
     id: 3,
     image: "event-cars",
-    date: "Friday 24–26 April",
+    date: "Friday 24-26 April",
     title: "La Jolla Concours d'Elegance",
     location: "La Jolla, CA",
     tags: ["Culture", "Cars"],
@@ -33,7 +36,7 @@ export const featuredEvents = [
   {
     id: 4,
     image: "event-food",
-    date: "Saturday 10–12 May",
+    date: "Saturday 10-12 May",
     title: "International Food Expo 2026",
     location: "Chicago, IL",
     tags: ["Food", "Expo"],
@@ -41,7 +44,7 @@ export const featuredEvents = [
   {
     id: 5,
     image: "event-startup",
-    date: "Monday 5–7 June",
+    date: "Monday 5-7 June",
     title: "TechStart Summit 2026",
     location: "San Francisco, CA",
     tags: ["Tech", "Startup"],
@@ -49,19 +52,19 @@ export const featuredEvents = [
   {
     id: 6,
     image: "hero-event",
-    date: "Saturday 14–15 June",
+    date: "Saturday 14-15 June",
     title: "Neon Lights Music Festival",
     location: "Austin, TX",
     tags: ["Music", "Festival"],
   },
-];
+] as const;
 
 export const toolCategories = [
   {
     id: "sell",
     title: "Sell",
     description:
-      "Sell more tickets, save more time, make more money. Sell and manage tickets, registrations, and merchandise with add-ons like attendee ticket insurance, transfers, and upgrade.",
+      "Sell more tickets, save more time, make more money. Sell and manage tickets, registrations, and merchandise with add-ons like attendee ticket insurance, transfers, and upgrades.",
   },
   {
     id: "promote",
@@ -93,7 +96,7 @@ export const toolCategories = [
     description:
       "Boost engagement, grow attendance, and build connections with immersive virtual and hybrid experiences featuring interactive tools and real-time networking.",
   },
-];
+] as const;
 
 export const integrations = [
   "Stripe",
@@ -102,7 +105,7 @@ export const integrations = [
   "Mailchimp",
   "HubSpot",
   "Salesforce",
-];
+] as const;
 
 export const calendarCategories = [
   "Mountain Biking",
@@ -113,7 +116,7 @@ export const calendarCategories = [
   "Motor Sport",
   "Art & Design",
   "Tech Conferences",
-];
+] as const;
 
 export const testimonials = [
   {
@@ -140,7 +143,7 @@ export const testimonials = [
     role: "Head of Operations, CultureFest",
     company: "CultureFest",
   },
-];
+] as const;
 
 export const supportCards = [
   {
@@ -167,12 +170,32 @@ export const supportCards = [
     cta: "Read now",
     color: "cyan" as const,
   },
-];
+] as const;
 
-export const footerColumns = {
-  Organizer: ["Sell", "Promote", "Sponsor", "Execute", "Insights", "Virtual", "Pricing"],
-  "Event Goer": ["Discover Events", "My Tickets", "Event Insurance"],
-  Partner: ["Calendar", "Referral Program", "Trusted Partners", "Become a Sponsor"],
-  Resources: ["Contact Support", "Help Center", "Blog", "eBooks", "AI Event Tools", "Brand Guide"],
-  Company: ["About Us", "Press", "Investor Relations", "Careers"],
-};
+export const footerColumns = [
+  new FooterColumn("Organizer", [
+    "Sell",
+    "Promote",
+    "Sponsor",
+    "Execute",
+    "Insights",
+    "Virtual",
+    "Pricing",
+  ]),
+  new FooterColumn("Event Goer", ["Discover Events", "My Tickets", "Event Insurance"]),
+  new FooterColumn("Partner", [
+    "Calendar",
+    "Referral Program",
+    "Trusted Partners",
+    "Become a Sponsor",
+  ]),
+  new FooterColumn("Resources", [
+    "Contact Support",
+    "Help Center",
+    "Blog",
+    "eBooks",
+    "AI Event Tools",
+    "Brand Guide",
+  ]),
+  new FooterColumn("Company", ["About Us", "Press", "Investor Relations", "Careers"]),
+] as const;

@@ -6,9 +6,11 @@ const WaitlistSection = () => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) setSubmitted(true);
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    if (email) {
+      setSubmitted(true);
+    }
   };
 
   return (
@@ -20,18 +22,20 @@ const WaitlistSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="mb-4 inline-block text-4xl">☀️</div>
+          <div className="mb-4 inline-block text-4xl" aria-hidden="true">
+            *
+          </div>
           <h2 className="text-3xl font-extrabold text-primary-foreground md:text-4xl">
             Where the world finds events.
           </h2>
           <p className="mt-4 max-w-md text-primary-foreground/80">
-            Join the waitlist for the new Events.com App — the future of event discovery.
+            Join the waitlist for the new Events.com app - the future of event discovery.
           </p>
 
           <div className="mt-8 max-w-md rounded-2xl bg-primary/40 p-6 backdrop-blur-sm">
             {submitted ? (
               <p className="text-center font-semibold text-accent-lime">
-                🎉 You're on the list! We'll be in touch.
+                Thanks, you're on the list. We'll be in touch.
               </p>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -43,7 +47,7 @@ const WaitlistSection = () => {
                   required
                   placeholder="Email*"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(event) => setEmail(event.target.value)}
                   className="w-full rounded-lg border-0 bg-card px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent-cyan"
                 />
                 <button
@@ -65,15 +69,14 @@ const WaitlistSection = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="relative flex justify-center"
         >
-          {/* Decorative circle */}
           <div className="absolute -right-8 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-accent-cyan/30" />
           <div className="relative z-10 flex gap-4">
-            {[1, 2, 3].map((i) => (
+            {[1, 2, 3].map((cardIndex) => (
               <div
-                key={i}
+                key={cardIndex}
                 className="h-64 w-36 rounded-2xl bg-foreground/90 shadow-2xl md:h-80 md:w-44"
                 style={{
-                  transform: `rotate(${(i - 2) * 5}deg)`,
+                  transform: `rotate(${(cardIndex - 2) * 5}deg)`,
                 }}
               >
                 <div className="flex h-full flex-col items-center justify-center gap-2 p-3">
