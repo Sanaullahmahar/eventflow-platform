@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, ArrowRight, ArrowLeft, Calendar, Search, MapPinned, ChevronDown, Wine, CircleAlert, MailOpen, Sparkles, MonitorSmartphone, MapPinCheckInside, ClipboardCheck, ReceiptText } from 'lucide-react';
+import { Shield, ArrowRight, ArrowLeft, Calendar, Search, MapPinned, ChevronDown, Wine, CircleAlert, MailOpen, Sparkles, MonitorSmartphone, MapPinCheckInside, ClipboardCheck, ReceiptText, PartyPopper, Diamond, Music, Tent } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { PLAN_OPTIONS, EVENT_TYPES, TOTAL_STEPS, US_STATES, primaryActionClass } from '@/features/get-quote/config/quoteFlow';
 import { quoteSubmissionService } from '@/features/get-quote/services/QuoteSubmissionService';
