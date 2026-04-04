@@ -4,7 +4,7 @@ import { AppRouteRegistry } from "@/app/routing/AppRouteRegistry";
 
 const App = () => (
   <AppProviders>
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Routes>
         {AppRouteRegistry.getRoutes().map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />
