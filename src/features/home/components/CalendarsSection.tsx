@@ -1,4 +1,4 @@
-import { calendarCategories } from "@/data/siteData";
+import { calendarCategories } from "@/shared/config/siteContent";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 

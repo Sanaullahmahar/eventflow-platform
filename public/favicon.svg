@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Events.com icon">
+  <defs>
+    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f4c81"/>
+      <stop offset="100%" stop-color="#1ea7d7"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <rect x="14" y="18" width="36" height="30" rx="8" fill="#ffffff"/>
+  <rect x="14" y="18" width="36" height="9" rx="8" fill="#cbeaf6"/>
+  <circle cx="23" cy="23" r="2.5" fill="#0f4c81"/>
+  <circle cx="41" cy="23" r="2.5" fill="#0f4c81"/>
+  <path d="M22 35h9M22 40h20M35 35h7" stroke="#0f4c81" stroke-linecap="round" stroke-width="3"/>
+</svg>

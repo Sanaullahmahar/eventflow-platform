@@ -1,4 +1,4 @@
-import { testimonials } from "@/data/siteData";
+import { testimonials } from "@/shared/config/siteContent";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 

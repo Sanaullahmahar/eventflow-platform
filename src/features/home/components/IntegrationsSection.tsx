@@ -1,4 +1,4 @@
-import { integrations } from "@/data/siteData";
+import { integrations } from "@/shared/config/siteContent";
 import { motion } from "framer-motion";
 
 const IntegrationsSection = () => (

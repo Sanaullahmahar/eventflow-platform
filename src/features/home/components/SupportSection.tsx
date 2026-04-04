@@ -1,4 +1,4 @@
-import { supportCards } from "@/data/siteData";
+import { supportCards } from "@/shared/config/siteContent";
 import { motion } from "framer-motion";
 import { HelpCircle, Phone, Mail, BookOpen } from "lucide-react";
 

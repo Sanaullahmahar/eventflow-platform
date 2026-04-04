@@ -1,5 +1,5 @@
 import { MapPin } from "lucide-react";
-import { featuredEvents } from "@/data/siteData";
+import { featuredEvents } from "@/shared/config/siteContent";
 import { motion } from "framer-motion";
 
 import eventSummit from "@/assets/event-summit.jpg";

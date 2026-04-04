@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { toolCategories } from "@/data/siteData";
+import { toolCategories } from "@/shared/config/siteContent";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
