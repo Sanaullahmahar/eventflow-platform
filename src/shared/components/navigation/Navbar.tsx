@@ -13,7 +13,9 @@ import {
   Zap,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { navLinks } from "@/shared/config/siteContent";
+import { AppRoutes } from "@/shared/routing/AppRoutes";
 
 const dropdownItems = [
   { label: "Sell", subtitle: "Sales Management Tools", icon: Settings },
@@ -45,12 +47,12 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-primary-deep shadow-lg">
       <div className="container mx-auto flex items-center justify-between px-4 py-3 lg:px-8">
-        <a
-          href="/"
+        <Link
+          to={AppRoutes.HOME}
           className="text-2xl font-extrabold tracking-tight text-primary-foreground lg:text-3xl"
         >
           events<span className="text-accent-lime">.com</span>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-1 lg:flex">
           {navLinks.map((link) => (
@@ -88,7 +90,7 @@ const Navbar = () => {
                     {dropdownItems.map((item) => (
                       <Link
                         key={item.label}
-                        to="/get-quote"
+                        to={AppRoutes.GET_QUOTE}
                         className="flex items-center gap-3 px-5 py-3 transition-colors hover:bg-primary-foreground/10"
                         onClick={() => setDropdownOpen(false)}
                       >
@@ -161,7 +163,7 @@ const Navbar = () => {
                 {dropdownItems.map((item) => (
                   <Link
                     key={item.label}
-                    to="/get-quote"
+                    to={AppRoutes.GET_QUOTE}
                     className="flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-primary/40"
                     onClick={() => setMobileOpen(false)}
                   >

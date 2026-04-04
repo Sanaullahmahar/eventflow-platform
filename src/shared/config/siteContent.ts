@@ -1,9 +1,10 @@
 import { FooterColumn } from "@/shared/config/models/FooterColumn";
 import { NavigationItem } from "@/shared/config/models/NavigationItem";
+import { AppRoutes } from "@/shared/routing/AppRoutes";
 
 export const navLinks = [
   new NavigationItem("My Tickets", "#"),
-  new NavigationItem("Events Insurance", "/events-insurance"),
+  new NavigationItem("Events Insurance", AppRoutes.EVENTS_INSURANCE),
   new NavigationItem("Discover Events", "/#discover"),
   new NavigationItem("Virtual Events", "#"),
 ] as const;

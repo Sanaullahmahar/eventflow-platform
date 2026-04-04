@@ -15,8 +15,10 @@ import {
   Users,
   X,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import Footer from "@/shared/components/layout/Footer";
 import Navbar from "@/shared/components/navigation/Navbar";
+import { AppRoutes } from "@/shared/routing/AppRoutes";
 import heroEvent from "@/assets/hero-event.jpg";
 import eventBeer from "@/assets/event-beer.jpg";
 import eventCars from "@/assets/event-cars.jpg";
@@ -215,12 +217,12 @@ const EventsInsurance = () => {
               policy setup and reliable support.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a
-                href="#quote"
+              <Link
+                to={AppRoutes.GET_QUOTE}
                 className="inline-flex items-center rounded-full bg-accent-cyan px-7 py-3 font-bold text-foreground transition-transform hover:scale-105 hover:bg-accent-cyan/90"
               >
                 Get Quote
-              </a>
+              </Link>
               <a
                 href="#faq"
                 className="inline-flex items-center rounded-full border border-primary-foreground/40 px-7 py-3 font-semibold text-primary-foreground hover:bg-primary-foreground/10"

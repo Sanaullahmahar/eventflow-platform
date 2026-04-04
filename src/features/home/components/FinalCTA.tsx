@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { AppRoutes } from "@/shared/routing/AppRoutes";
 
 const FinalCTA = () => (
   <section id="quote" className="relative overflow-hidden bg-brand-gradient py-24">
@@ -20,7 +21,7 @@ const FinalCTA = () => (
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-4">
         <Link
-          to="/get-quote"
+          to={AppRoutes.GET_QUOTE}
           className="rounded-full bg-accent-cyan px-8 py-3.5 text-sm font-bold text-foreground shadow-lg transition-transform hover:scale-105"
         >
           Get Quote

@@ -1,42 +1,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, ArrowRight, ArrowLeft, Cake, Diamond, Briefcase, PartyPopper, Music, Tent, Calendar, Search, MapPinned, ChevronDown, Wine, CircleAlert, MailOpen, Sparkles, MonitorSmartphone, MapPinCheckInside, ClipboardCheck, ReceiptText } from 'lucide-react';
+import { Shield, ArrowRight, ArrowLeft, Calendar, Search, MapPinned, ChevronDown, Wine, CircleAlert, MailOpen, Sparkles, MonitorSmartphone, MapPinCheckInside, ClipboardCheck, ReceiptText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { PLAN_OPTIONS, EVENT_TYPES, TOTAL_STEPS, US_STATES, primaryActionClass } from '@/features/get-quote/config/quoteFlow';
+import { quoteSubmissionService } from '@/features/get-quote/services/QuoteSubmissionService';
+import { emailRegex, getPhoneError, nameCityRegex, zipRegex } from '@/features/get-quote/utils/quoteValidation';
+import { AppRoutes } from '@/shared/routing/AppRoutes';
 
-const US_STATES = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
-const EVENT_TYPES = [
-  { id: 'Wedding', label: 'Wedding', icon: Diamond },
-  { id: 'Birthday', label: 'Birthday', icon: Cake },
-  { id: 'Vendor', label: 'Vendor at Event', icon: Briefcase },
-  { id: 'Corporate', label: 'Corporate Event', icon: PartyPopper },
-  { id: 'Concert', label: 'Concert / Festival', icon: Music },
-  { id: 'Other', label: 'Other Event', icon: Tent },
-];
-const PLAN_OPTIONS = [
-  { id: 'basic', limit: '1 Million / 2 Million', accent: 'bg-[#36a3dd] text-white', outline: 'border-[#36a3dd] text-[#36a3dd]', price: '697', stats: [{ label: 'Per Occurence:', value: '$1 million' }, { label: 'Aggregate:', value: '$2 million' }, { label: 'Property Damage:', value: '$300,000' }, { label: 'Medical:', value: '$5,000' }, { label: 'Deductible:', value: '$0' }] },
-  { id: 'standard', limit: '1 Million / 5 Million', accent: 'bg-primary text-primary-foreground', outline: 'border-primary text-primary-foreground bg-primary', price: '186', recommended: true, stats: [{ label: 'Per Occurence:', value: '$1 million' }, { label: 'Aggregate:', value: '$5 million' }, { label: 'Property Damage:', value: '$1 million' }, { label: 'Medical:', value: '$5,000' }, { label: 'Deductible:', value: '$0' }] },
-  { id: 'premium', limit: '2 Million / 5 Million', accent: 'bg-[#08a045] text-white', outline: 'border-[#08a045] text-[#08a045]', price: '273', stats: [{ label: 'Per Occurence:', value: '$2 million' }, { label: 'Aggregate:', value: '$5 million' }, { label: 'Property Damage:', value: '$1 million' }, { label: 'Medical:', value: '$5,000' }, { label: 'Deductible:', value: '$0' }] },
-  { id: 'enterprise', limit: '5 Million / 5 Million', accent: 'bg-[#433d83] text-white', outline: 'border-[#433d83] text-[#433d83]', price: '1244', stats: [{ label: 'Per Occurence:', value: '$5 million' }, { label: 'Aggregate:', value: '$5 million' }, { label: 'Property Damage:', value: '$1 million' }, { label: 'Medical:', value: '$5,000' }, { label: 'Deductible:', value: '$0' }] },
-];
-const TOTAL_STEPS = 12;
-const inputClass = 'w-full py-4 px-4 bg-card rounded-xl shadow-card focus:shadow-focus transition-all outline-none text-foreground placeholder:text-muted-foreground';
-const selectClass = `${inputClass} appearance-none`;
-const errorInputClass = 'border border-red-500 focus:shadow-none';
-const primaryActionClass = 'mx-auto flex min-w-[180px] items-center justify-center rounded-full px-10 py-4 text-base font-semibold transition-all duration-300';
-const zipRegex = /^\d{5}$/;
-const nameCityRegex = /^[A-Za-z.' -]+$/;
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_RULES: Record<string, { digits: number; example: string }> = {
-  '1': { digits: 10, example: '+11234567890' },
-  '44': { digits: 10, example: '+441234567890' },
-  '61': { digits: 9, example: '+61123456789' },
-  '91': { digits: 10, example: '+911234567890' },
-  '92': { digits: 10, example: '+921234567890' },
-  '966': { digits: 9, example: '+966123456789' },
-  '971': { digits: 9, example: '+971123456789' },
-};
-
-const GetQuote = () => {
+const GetQuotePage = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,33 +24,6 @@ const GetQuote = () => {
   const [venueTouched, setVenueTouched] = useState<Record<string, boolean>>({});
   const [quoteUserFirstName, setQuoteUserFirstName] = useState(''); const [quoteUserLastName, setQuoteUserLastName] = useState(''); const [quoteUserEmail, setQuoteUserEmail] = useState(''); const [quoteUserPhoneNumber, setQuoteUserPhoneNumber] = useState('');
   const [quoteTouched, setQuoteTouched] = useState<Record<string, boolean>>({});
-
-  const getPhoneError = (value: string, required = false) => {
-    const normalized = value.replace(/[\s()-]/g, '');
-
-    if (!normalized) return required ? 'Phone number is required.' : '';
-    if (!normalized.startsWith('+') || !/^\+\d+$/.test(normalized)) {
-      return 'Use phone number with country code, for example +921234567890.';
-    }
-
-    const digits = normalized.slice(1);
-    const matchedCode = Object.keys(PHONE_RULES)
-      .sort((a, b) => b.length - a.length)
-      .find((code) => digits.startsWith(code));
-
-    if (!matchedCode) {
-      return `Unsupported country code. Use one of: ${Object.keys(PHONE_RULES).map((code) => `+${code}`).join(', ')}.`;
-    }
-
-    const nationalNumber = digits.slice(matchedCode.length);
-    const rule = PHONE_RULES[matchedCode];
-
-    if (nationalNumber.length !== rule.digits) {
-      return `For +${matchedCode}, number must have exactly ${rule.digits} digits after country code. Example: ${rule.example}`;
-    }
-
-    return '';
-  };
 
   const getFieldError = (field: string) => {
     switch (field) {
@@ -194,11 +138,9 @@ const GetQuote = () => {
     };
     setIsSubmitting(true);
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/quote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data?.details ? JSON.stringify(data.details) : data?.error || 'Quote submission failed');
+      await quoteSubmissionService.submit(payload);
       alert('Quote submitted successfully.');
-      navigate('/');
+      navigate(AppRoutes.HOME);
     } catch (error) {
       alert(`Quote submission failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
@@ -226,7 +168,7 @@ const GetQuote = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <nav className="w-full px-6 sm:px-12 py-4 flex items-center justify-between border-b border-border bg-background/80 backdrop-blur-lg">
-        <button onClick={() => navigate('/')} className="flex items-center gap-2 hover:opacity-80 transition-opacity"><Shield className="w-7 h-7 text-accent" /><span className="text-lg font-bold text-foreground tracking-tight">OneDayEvent</span></button>
+        <button onClick={() => navigate(AppRoutes.HOME)} className="flex items-center gap-2 hover:opacity-80 transition-opacity"><Shield className="w-7 h-7 text-accent" /><span className="text-lg font-bold text-foreground tracking-tight">OneDayEvent</span></button>
       </nav>
       <div className="w-full h-1.5 bg-muted"><motion.div animate={{ width: `${(step / TOTAL_STEPS) * 100}%` }} transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }} className="h-full bg-accent" style={{ boxShadow: '0 0 8px hsla(221, 83%, 53%, 0.4)' }} /></div>
       <main className="flex-1 flex items-start justify-center px-4 sm:px-6 py-8 sm:py-16">
@@ -274,4 +216,4 @@ const StepHeader = ({ title, subtitle }: { title: string; subtitle: string }) =>
   </header>
 );
 
-export default GetQuote;
+export default GetQuotePage;

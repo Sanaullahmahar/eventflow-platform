@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import heroImg from "@/assets/hero-event.jpg";
+import { AppRoutes } from "@/shared/routing/AppRoutes";
 
 const HeroSection = () => (
   <section className="relative overflow-hidden">
@@ -34,11 +35,11 @@ const HeroSection = () => (
         </p>
         <div className="mt-8 flex flex-wrap gap-4">
           <Link
-            to="/get-quote"
+            to={AppRoutes.GET_QUOTE}
             className="inline-flex items-center rounded-full bg-accent-cyan px-8 py-3.5 text-sm font-bold text-foreground shadow-lg transition-transform hover:scale-105"
           >
             Get Quote
-          </a>
+          </Link>
         </div>
       </motion.div>
     </div>

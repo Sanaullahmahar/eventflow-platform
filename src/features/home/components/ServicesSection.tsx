@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import singerImg from "@/assets/singer-event.jpg";
+import { AppRoutes } from "@/shared/routing/AppRoutes";
 
 const ServicesSection = () => (
   <section className="bg-card py-20">
@@ -22,7 +23,7 @@ const ServicesSection = () => (
           We create unforgettable experiences that captivate attendees and leave a lasting impact. Drawing on over 30 years of experience, we deliver innovative marketing, acquire top talent, and produce world-class events to bring your vision to life.
         </p>
         <Link
-          to="/get-quote"
+          to={AppRoutes.GET_QUOTE}
           className="mt-6 inline-flex rounded-full bg-accent-cyan px-8 py-3 text-sm font-bold text-foreground transition-transform hover:scale-105"
         >
           Get Quote
